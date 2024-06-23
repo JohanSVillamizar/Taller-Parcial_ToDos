@@ -1,29 +1,30 @@
-//crear servidor 
-require('dotenv').config()
-const express = require('express')
-const routerTodos = require('./routes')
-const bodyParser = require('body-parser')
+// index.js
+require('dotenv').config();
+const express = require('express');
+const routerTodos = require('./routes');
+const methodOverride = require('method-override'); // Importa method-override
+const PORT = process.env.PORT || 3000;
+const app = express();
+const path = require('path');
 
-const app = express()
-const PORT = process.env.PORT || 3000 
+// Middleware para servir archivos estáticos desde la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'src', 'public')));
 
-app.use(express.json())
+// Middleware para parsear el body de las solicitudes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-//Middleware para parsear los datos del formulario
-app.use(bodyParser.urlencoded({extended: true}));
+// Middleware para sobrescribir métodos HTTP
+app.use(methodOverride('_method')); // Configura method-override
 
-app.use((req, res, next) =>{
-    //console.log('Middleware de aplicación')
-    //console.log(req.method, req.url)
-    next()
-})
+// Configuración de vistas EJS
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
 
-//rutas
-routerTodos(app)
-app.set('views', './src/views')
-app.set('view engine', 'ejs')
+// Configuración de las rutas
+routerTodos(app);
 
-//levantando el servidor para escuchar por el puerto 3000
+// Levantar el servidor
 app.listen(PORT, () => {
-    console.log('Listening on port:' + PORT);
-})
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
