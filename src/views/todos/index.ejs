@@ -1,0 +1,26 @@
+<html>
+<body>
+    <h1>To-do List</h1>
+
+    <form action="/todospanel" method="post">
+        <label for="title">Registrar Tarea</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="completed">Completado</label>
+        <input type="checkbox" id="completed" name="completed"><br><br>
+
+        <button type="submit">Guardar Tarea</button>
+    </form>
+    <hr>
+
+    <h2>Lista de Tareas</h2>
+    <ul>
+        <% todos.forEach(function(todo){ %>
+            <li> 
+                <%= todo.title %> - <%= todo.completed ? "completed":"no completed"%>
+            </li>
+            <% }); %>
+        </ul>
+
+</body>
+</html>
