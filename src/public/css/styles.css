@@ -6,6 +6,16 @@
   'opsz' 24
 }
 
+.tasks{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.List-title{
+    padding-right: 10px;
+}
+
 .completed-icon {
     color: #1AAF18; /* Color de fondo verde para completado */
 }
@@ -30,8 +40,29 @@
 
 .todo-element{
     display: flex;
+    align-items: center;
 }
 
 .todo-title {
     margin-left: 10px;
+}
+
+.icon-task{
+    font-size: 40px !important;
+}
+.info-icons{
+    margin: 10px;
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.completed-group{
+    display: flex;
+    align-items: center;
+}
+
+.not-completed-group{
+    display: flex;
+    align-items: center;
 }

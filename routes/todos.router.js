@@ -60,7 +60,6 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// Ruta para mostrar el formulario de edición de una tarea específica
 // Ruta para mostrar la vista de edición de una tarea específica
 router.get('/:id/edit', async (req, res) => {
     try {

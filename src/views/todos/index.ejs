@@ -1,6 +1,7 @@
 <!-- src/views/todos/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,13 @@
     <link href="/css/styles.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/js/script.js"></script>
 </head>
+
 <body>
     <div class="container">
-        <h1 class="mt-5">To-do List</h1>
+        <h1 class="mt-5">Planeador de Tareas</h1>
 
         <form action="/todospanel" method="post" class="mb-5">
             <div class="form-group">
@@ -28,13 +32,36 @@
         </form>
         <hr>
 
-        <h2>Lista de Tareas</h2>
+        <div class="tasks">
+            <h2 class="List-title">Lista de Tareas</h2>
+            <span class="material-symbols-outlined icon-task">
+                receipt_long
+            </span>
+        </div>
+        <div class="info-icons">
+            <div class="completed-group">
+                <span class="material-symbols-outlined completed-icon">
+                    new_releases
+                </span>
+                Completado
+            </div>
+            <span class="material-symbols-outlined">
+                pen_size_1
+            </span>
+            <div class="not-completed-group">
+                <span class="material-symbols-outlined not-completed-icon">
+                    info
+                </span>
+                No Completado
+            </div>
+        </div>
         <ul class="list-group">
             <% todos.forEach(function(todo){ %>
                 <li class="list-group-item">
                     <div class="todo-item">
                         <div class="todo-element">
-                            <span class="material-symbols-outlined <%= todo.completed ? 'completed-icon' : 'not-completed-icon' %>">
+                            <span
+                                class="material-symbols-outlined <%= todo.completed ? 'completed-icon' : 'not-completed-icon' %>">
                                 <%= todo.completed ? 'new_releases' : 'info' %>
                             </span>
                             <div class="todo-title">
@@ -48,21 +75,22 @@
                                 <input type="hidden" name="title" value="<%= todo.title %>">
                                 <input type="hidden" name="completed" value="<%= todo.completed ? 'on' : '' %>">
                                 <button type="submit" class="btn btn-warning btn-sm">Editar</button>
-                            </form>                            
+                            </form>
                             <!-- Formulario para eliminar tarea -->
-                            <form action="/todospanel/<%= todo.id %>" method="post" class="d-inline">
-                                <input type="hidden" name="_method" value="DELETE"> <!-- Método DELETE simulado -->
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <form id="deleteForm<%= todo.id %>" class="d-inline">
+                                <button type="button" class="btn btn-danger btn-sm delete-btn" data-todo-id="<%= todo.id %>">Eliminar</button>
                             </form>
                         </div>
                     </div>
                 </li>
-            <% }); %>
+                <% }); %>
         </ul>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
